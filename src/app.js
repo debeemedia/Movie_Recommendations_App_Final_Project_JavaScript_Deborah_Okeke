@@ -26,6 +26,8 @@ const displayMovies = async () => {
     // console.log(movieName);
     const movieImage = movieData.map(movie => movie.image.original)
     // console.log(movieImage);
+    const movieSummary = movieData.map(movie => movie.summary)
+    // console.log(movieSummary);
 
     let currentPage = 1
     let itemsPerPage = 8
@@ -70,6 +72,33 @@ const displayMovies = async () => {
             card.append(cardImgDiv)
             card.append(cardBody)
             main.append(card)
+
+            // create function to implement popup
+            function togglePopup () {
+                let popup = document.createElement('div')
+
+                let description = document.createElement('div')
+
+                let title = document.createElement('h3')
+                title.innerText = movieName[i]
+                console.log(title);
+
+                let summary = document.createElement('p')
+                summary.innerHTML = movieSummary[i]
+                console.log(summary);
+
+                description.append(title)
+                description.append(summary)
+
+                popup.append(description)
+                
+                main.append(popup)
+                popup.classList.toggle('show')
+            }
+            // togglePopup()
+
+            // add event listener on card to show popup
+            card.addEventListener('click', togglePopup)
         }
     }
     
