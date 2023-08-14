@@ -1,0 +1,168 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+@font-face {
+    font-family: terminator;
+    src: url(./fonts/terminator-genisys-font/TerminatorGenisys-Vodx.ttf);
+}
+
+@font-face {
+    font-family: gothamBlack;
+    src: url(./fonts/Gotham-Font/Gotham-Font/Gotham-Black.otf);
+}
+
+@font-face {
+    font-family: gothamBook;
+    src: url(./fonts/Gotham-Font/Gotham-Font/GothamBook.ttf);
+}
+
+@font-face {
+    font-family: gothamLight;
+    src: url(./fonts/Gotham-Font/Gotham-Font/Gotham-Light.otf);
+}
+
+html {
+    font-size: 16px;
+}
+
+body {
+    min-height: 100vh;
+    color: #fff;
+}
+
+header {
+    background-color: #E50914;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 0;
+}
+
+h1 {
+    display: flex;
+    align-items: center;
+    gap: 1px;
+}
+
+h1 span:first-child {
+    font-family: terminator;
+    /* font-size: 32px; */
+    font-size: 3rem;
+}
+
+h1 span:nth-child(2) {
+    font-family: gothamBlack;
+    /* font-size: 16px; */
+    font-size: 2rem;
+}
+
+header > span {
+    font-family: gothamBook;
+    /* font-size: 14px; */
+    font-size: 1rem;
+}
+
+.container {
+    background-color: #141414;
+    padding-top: 30px;
+    /* revisit */
+    min-height: 500px;
+}
+
+.card {
+    background-color: #414141;
+    width: 70%;
+    /* max-width: 400px; */
+    margin: 0 auto 30px;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 1px 5px 1px grey;
+}
+
+.cardImgDiv {
+    flex: 1;
+}
+
+.cardImg {
+    border-radius: 8px;
+    width: 100%;
+    height: 100%;
+}
+
+.cardBody {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.cardName {
+    font-family: gothamBlack;
+}
+
+.cardLike,
+.cardComment {
+    color: #fff;
+}
+
+.cardLike:hover,
+.cardComment:hover {
+    color: #E50914;
+}
+
+nav {
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #414141;
+    width: 20%;
+    margin: 30px auto 0;
+}
+
+nav span:hover {
+    cursor: pointer;
+    background-color: #E50914;
+}
+
+footer {
+    font-family: gothamLight;
+    font-size: 10px;
+}
+
+/* MEDIA QUERIES */
+
+@media screen and (width >= 575px) {
+    html {
+        font-size: 17px;
+    }
+
+    main {
+        display: grid;
+        grid-template-columns: repeat(2, auto);
+        gap: 30px;
+        padding: 0 30px;
+    }
+    
+    .card {
+        margin: initial;
+        width: initial;
+    }
+}
+
+@media screen and (width >= 767px) {
+    html {
+        font-size: 18px;
+    }
+
+    main {
+        display: grid;
+        grid-template-columns: repeat(3, auto);
+    }
+}
