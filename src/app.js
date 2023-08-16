@@ -48,6 +48,7 @@ const displayMovies = async () => {
 
     // create a container to hold the cards
     const cardOuterContainer = document.createElement('div')
+    cardOuterContainer.className = 'cardOuterContainer'
     
     // create function to display pages
     function displayPage() {
