@@ -193,7 +193,7 @@ footer {
         font-size: 17px;
     }
 
-    main {
+    .cardOuterContainer {
         display: grid;
         grid-template-columns: repeat(2, auto);
         gap: 30px;
@@ -211,7 +211,7 @@ footer {
         font-size: 18px;
     }
 
-    main {
+    .cardOuterContainer {
         display: grid;
         grid-template-columns: repeat(3, auto);
     }
