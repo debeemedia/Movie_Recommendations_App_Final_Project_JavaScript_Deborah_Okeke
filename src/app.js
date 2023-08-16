@@ -8,8 +8,9 @@ const overlay = document.querySelector('.overlay')
 const closePopupBtn = document.createElement('span')
 
 
-// reference api url
+// reference api urls
 const movieApi = 'https://api.tvmaze.com/shows'
+const commentApi = 'https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/mfWmNK2U98CR08nLP5Ud/comments/'
 
 // create function to fetch movie data
 async function fetchMovie() {
@@ -41,6 +42,8 @@ const displayMovies = async () => {
             return `${key}: ${rating[key]}`
         }
     })
+    const movieId = movieData.map(movie => movie.id)
+    // console.log(movieId)
 
     let currentPage = 1
     let itemsPerPage = 8
@@ -82,12 +85,9 @@ const displayMovies = async () => {
             </span>`
             cardComment.className = 'cardComment'
             
-            cardBody.append(cardName)
-            cardBody.append(cardLike)
-            cardBody.append(cardComment)
+            cardBody.append(cardName, cardLike, cardComment)
             
-            card.append(cardImgDiv)
-            card.append(cardBody)
+            card.append(cardImgDiv, cardBody)
 
             // add event listener to show and hide popup
             card.addEventListener('click', () => showPopup(i))
@@ -119,14 +119,13 @@ const displayMovies = async () => {
 
             const title = document.createElement('h3')
             title.innerText = movieName[index]
-            console.log(title);
+            // console.log(title);
 
             const summary = document.createElement('p')
             summary.innerHTML = movieSummary[index]
-            console.log(summary);
+            // console.log(summary);
 
-            description.append(title)
-            description.append(summary)
+            description.append(title, summary)
 
             const extraDescription = document.createElement('div')
             extraDescription.className = 'extraDescription'
@@ -140,6 +139,9 @@ const displayMovies = async () => {
             const rating = document.createElement('span')
             rating.innerText = `RATING: ${movieRating[index]}`
 
+            const commentFormAndDiv = document.createElement('div')
+            commentFormAndDiv.className = 'commentFormAndDiv'
+
             const commentForm = document.createElement('form')
             commentForm.className = 'commentForm'
             const commentInput = document.createElement('input')
@@ -149,23 +151,109 @@ const displayMovies = async () => {
             const commentButton = document.createElement('button')
             commentButton.innerText = 'Comment'
 
-            commentForm.append(commentInput)
-            commentForm.append(commentText)
-            commentForm.append(commentButton)
+            commentForm.append(commentInput, commentText, commentButton)
 
-            extraDescription.append(thumbnail)
-            extraDescription.append(runtime)
-            extraDescription.append(rating)
+            extraDescription.append(thumbnail, runtime, rating)
 
-            popupContainer.append(extraDescription)
-            popupContainer.append(description)
-            popupContainer.append(commentForm)
+            popupContainer.append(extraDescription, description)
             
-            popup.append(closePopupBtn)
-            popup.append(popupContainer)
+            commentFormAndDiv.append(commentForm)
+            popupContainer.append(commentFormAndDiv)
+
+            popup.append(closePopupBtn, popupContainer)
 
             popup.classList.remove('hidden')
             overlay.classList.remove('hidden')
+
+            const commentsDivContainer = document.createElement('div')
+            commentsDivContainer.className = 'commentsDivContainer'
+
+            const newCommentsDiv = document.createElement('div')
+
+            // send GET request to get and display the comments
+            fetch(`${commentApi}?item_id=${movieId[index]}`)
+            .then(response => response.json())
+            .then(data => {
+                const commentCount = document.createElement('span')
+                commentCount.innerText = data.length
+                
+                data.forEach(commentsData => {
+                    // create div to display comments
+                    const commentsDiv = document.createElement('div')
+
+                    
+
+                    const commentsDivDate = document.createElement('span')
+                    commentsDivDate.innerText = commentsData.creation_date
+                    const commentsDivUser = document.createElement('span')
+                    commentsDivUser.innerText = commentsData.username
+                    const commentsDivComment = document.createElement('span')
+                    commentsDivComment.innerText = commentsData.comment
+                    
+                    commentsDiv.append(commentsDivDate, commentsDivUser, commentsDivComment)
+  
+                    commentsDivContainer.append(commentsDiv, newCommentsDiv)
+                    
+                    // console.log(commentsData);
+                })
+                const allComments = document.createElement('h3')
+                allComments.innerText = 'All Comments'
+
+                allComments.append(commentCount)
+
+                commentsDivContainer.prepend(allComments)
+
+                commentFormAndDiv.append(commentsDivContainer)
+            })
+
+            // implementing comments
+            commentInput.setAttribute('required', '')
+            commentText.setAttribute('required', '')
+            commentForm.addEventListener('submit', (e) => {
+                e.preventDefault()
+                const userComment = {
+                    item_id: movieId[index],
+                    username: commentInput.value,
+                    comment: commentText.value
+                }
+                // making the POST request to the comments endpoint
+                fetch(commentApi, {
+                    method: 'POST',
+                    headers: {
+                        "Content-Type": 'application/json'
+                    },
+                    body: JSON.stringify(userComment)
+                })
+                .then(response => {
+                    if (response.ok) {
+                        console.log('good to go');
+                        console.log(movieId[index]);
+                        console.log(response);
+                        console.log(response.status);
+                        return response.status
+
+                    } else {
+                        console.log('come back hia!');
+                    }
+                })
+                .then(data => {
+                    if (data === 201) {
+                        console.log('hi there');
+                        // const newCommentsDivDate = document.createElement('span')
+                        // newCommentsDivDate.innerText = commentsData.creation_date
+                        const newCommentsDivUser = document.createElement('span')
+                        newCommentsDivUser.innerText = userComment.username
+                        const newCommentsDivComment = document.createElement('span')
+                        newCommentsDivComment.innerText = userComment.comment
+                        
+                        newCommentsDiv.append(newCommentsDivUser, newCommentsDivComment)
+                    }
+                })
+                .catch(error => {
+                    console.log('Error: ' + error);
+                })
+                
+            })
         }
 
         // create function to close popup
