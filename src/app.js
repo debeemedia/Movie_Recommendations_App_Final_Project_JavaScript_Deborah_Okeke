@@ -45,6 +45,9 @@ const displayMovies = async () => {
     let currentPage = 1
     let itemsPerPage = 8
     let totalPages = Math.ceil(movieData.length / itemsPerPage)
+
+    // create a container to hold the cards
+    const cardOuterContainer = document.createElement('div')
     
     // create function to display pages
     function displayPage() {
@@ -84,7 +87,6 @@ const displayMovies = async () => {
             
             card.append(cardImgDiv)
             card.append(cardBody)
-            main.append(card)
 
             // add event listener to show and hide popup
             card.addEventListener('click', () => showPopup(i))
@@ -96,7 +98,11 @@ const displayMovies = async () => {
                 }
             })
 
+            // append the card to the card container
+            cardOuterContainer.append(card)
         }
+        // append the card container to the main
+        main.append(cardOuterContainer)
 
         // create function to show popup
         function showPopup (index) {
@@ -182,7 +188,7 @@ const displayMovies = async () => {
     
     // add functionality to buttons
     previousButton.addEventListener('click', () => {
-        main.innerHTML = ''
+        cardOuterContainer.innerHTML = ''
         if (currentPage > 1) {
             currentPage--
             displayPage()
@@ -191,7 +197,7 @@ const displayMovies = async () => {
     })
     
     nextButton.addEventListener('click', () => {
-        main.innerHTML = ''
+        cardOuterContainer.innerHTML = ''
         if (currentPage < totalPages) {
             currentPage++
             displayPage()
