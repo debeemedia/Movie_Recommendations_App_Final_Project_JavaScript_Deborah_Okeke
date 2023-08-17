@@ -112,10 +112,10 @@ header > span {
     color: #fff;
 }
 
-.cardLike:hover,
+/* .cardLike:hover,
 .cardComment:hover {
     color: #E50914;
-}
+} */
 
 .hidden {
     display: none;
