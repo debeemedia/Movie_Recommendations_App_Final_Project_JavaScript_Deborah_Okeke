@@ -168,42 +168,49 @@ const displayMovies = async () => {
             const commentsDivContainer = document.createElement('div')
             commentsDivContainer.className = 'commentsDivContainer'
 
-            const newCommentsDiv = document.createElement('div')
 
             // send GET request to get and display the comments
             fetch(`${commentApi}?item_id=${movieId[index]}`)
             .then(response => response.json())
             .then(data => {
-                const commentCount = document.createElement('span')
-                commentCount.innerText = data.length
+                const commentCount = document.createElement('h4')
+                commentCount.innerText = `All Comments (${data.length})`
                 
-                data.forEach(commentsData => {
-                    // create div to display comments
-                    const commentsDiv = document.createElement('div')
 
-                    
+                
 
-                    const commentsDivDate = document.createElement('span')
-                    commentsDivDate.innerText = commentsData.creation_date
-                    const commentsDivUser = document.createElement('span')
-                    commentsDivUser.innerText = commentsData.username
-                    const commentsDivComment = document.createElement('span')
-                    commentsDivComment.innerText = commentsData.comment
-                    
-                    commentsDiv.append(commentsDivDate, commentsDivUser, commentsDivComment)
-  
-                    commentsDivContainer.append(commentsDiv, newCommentsDiv)
-                    
-                    // console.log(commentsData);
-                })
-                const allComments = document.createElement('h3')
-                allComments.innerText = 'All Comments'
+                // const isCommentExist = Array.isArray(data) && data.length > 0
 
-                allComments.append(commentCount)
+                if (Array.isArray(data) && data.length > 0) {
+                    commentCount.innerText = `All Comments (${data.length})`
+                    console.log('data is an array');
+                    data.forEach(commentsData => {
+    
+                        // create div to display comments
+                        const commentsDiv = document.createElement('div')
+    
+                        const commentsDivDate = document.createElement('span')
+                        commentsDivDate.innerText = commentsData.creation_date
+                        const commentsDivUser = document.createElement('span')
+                        commentsDivUser.innerText = commentsData.username
+                        const commentsDivComment = document.createElement('span')
+                        commentsDivComment.innerText = commentsData.comment
+                        
+                        commentsDiv.append(commentsDivDate, commentsDivUser, commentsDivComment)
+      
+                        commentsDivContainer.append(commentsDiv)
+                        
+                        // console.log(commentsData);
+                    })
+                } else {
+                    commentCount.innerText = `No comments yet. Be the first to comment.`
+                    console.log('data is not an array');
+                }
 
-                commentsDivContainer.prepend(allComments)
+                commentsDivContainer.prepend(commentCount)
 
                 commentFormAndDiv.append(commentsDivContainer)
+
             })
 
             // implementing comments
@@ -239,14 +246,18 @@ const displayMovies = async () => {
                 .then(data => {
                     if (data === 201) {
                         console.log('hi there');
-                        // const newCommentsDivDate = document.createElement('span')
-                        // newCommentsDivDate.innerText = commentsData.creation_date
+                        const newCommentsDiv = document.createElement('div')
+                        const newCommentsDivDate = document.createElement('span')
+                        newCommentsDivDate.innerText = new Date().toLocaleString()
                         const newCommentsDivUser = document.createElement('span')
                         newCommentsDivUser.innerText = userComment.username
                         const newCommentsDivComment = document.createElement('span')
                         newCommentsDivComment.innerText = userComment.comment
                         
-                        newCommentsDiv.append(newCommentsDivUser, newCommentsDivComment)
+                        newCommentsDiv.append(newCommentsDivDate, newCommentsDivUser, newCommentsDivComment)
+
+                        commentsDivContainer.append(newCommentsDiv)
+
                     }
                 })
                 .catch(error => {
