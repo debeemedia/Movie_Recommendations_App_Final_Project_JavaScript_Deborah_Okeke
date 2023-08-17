@@ -160,10 +160,27 @@ header > span {
     flex: 1;
 }
 
-.commentForm {
-    flex: 1;
+.commentFormAndDiv {
     display: flex;
     flex-direction: column;
+    gap: 100px;
+}
+
+.commentForm {
+    /* flex: 1; */
+    display: flex;
+    flex-direction: column;
+}
+
+.commentsDiv {
+    display: flex;
+    flex-direction: column;
+}
+
+.commentsDivContainer {
+    max-height: 100px;
+    overflow-y: scroll;
+    /* background-color: red; */
 }
 
 nav {
@@ -206,13 +223,14 @@ footer {
     }
 }
 
-@media screen and (width >= 767px) {
+@media screen and (width >= 1024px) {
     html {
         font-size: 18px;
     }
-
+    
     .cardOuterContainer {
         display: grid;
-        grid-template-columns: repeat(3, auto);
+        grid-template-columns: repeat(4, auto);
+        padding: 30px 80px;
     }
 }
