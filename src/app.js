@@ -160,8 +160,11 @@ const displayMovies = async () => {
             const extraDescription = document.createElement('div')
             extraDescription.className = 'extraDescription'
 
+            const thumbnailDiv = document.createElement('div')
+            thumbnailDiv.className = 'thumbnailDiv'
             const thumbnail = document.createElement('img')
             thumbnail.src = movieThumbnail[index]
+            thumbnailDiv.append(thumbnail)
 
             const runtime = document.createElement('span')
             runtime.innerText = `RUNTIME: ${movieRuntime[index]}`
@@ -186,7 +189,7 @@ const displayMovies = async () => {
 
             commentForm.append(commentInput, commentText, commentButton)
 
-            extraDescription.append(thumbnail, runtime, rating)
+            extraDescription.append(thumbnailDiv, runtime, rating)
 
             popupContainer.append(extraDescription, description)
             
