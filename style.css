@@ -117,6 +117,10 @@ header > span {
     color: #E50914;
 } */
 
+.liked {
+    color: #E50914
+}
+
 .hidden {
     display: none;
 }

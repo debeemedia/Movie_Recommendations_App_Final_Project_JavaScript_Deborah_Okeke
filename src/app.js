@@ -11,7 +11,7 @@ const closePopupBtn = document.createElement('span')
 // reference api urls
 const movieApi = 'https://api.tvmaze.com/shows'
 const commentApi = 'https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/mfWmNK2U98CR08nLP5Ud/comments/'
-const likeApi = 'https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/mfWmNK2U98CR08nLP5Ud/likes'
+const likeApi = 'https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/0V2vKmuLfBH53fnHnuXt/likes'
 
 // create function to fetch movie data
 async function fetchMovie() {
@@ -89,6 +89,29 @@ const displayMovies = async () => {
             cardBody.append(cardName, cardLike, cardComment)
             
             card.append(cardImgDiv, cardBody)
+            // making the GET request to the likes endpoint
+            fetch(likeApi)
+            .then(response => {
+                if (response.ok) {
+                    return response.json()
+                }
+            })
+            .then(data => {
+                console.log(data);
+                const cleanData = data.filter(entry => entry.item_id !== 'item2')
+                console.log(cleanData);
+                let movieLikes = 0;
+                for (let j = 0; j < cleanData.length; j++) {
+                    if (cleanData[j].item_id === movieId[i]) {
+                        movieLikes = cleanData[j].likes;
+                        break;
+                    }
+                }
+                const likeCount = document.createElement('span')
+                likeCount.innerText = movieLikes
+                cardLike.prepend(likeCount)
+            })
+            .catch(error => console.log('Error: ' + error))
 
             // add event listener to show and hide popup
             cardImgDiv.addEventListener('click', () => showPopup(i))
@@ -305,13 +328,26 @@ const displayMovies = async () => {
             .then(data => {
                 console.log(data);
                 if (data === 201) {
-                    likeIcon.style.color = '#E50914'
+                    likeIcon.classList.add('liked')
                     console.log('change color');
                 }
             })
             .catch(error => {
                 console.log('Error: ' + error);
             })
+
+            // // making the GET request to the likes endpoint
+            // fetch(likeApi)
+            // .then(response => response.json())
+            // .then(data => {
+            //     console.log(data);
+            //     const cleanData = data.filter(entry => entry.item_id !== 'item2')
+            //     console.log(cleanData);
+            //     const likeCount = document.createElement('span')
+            //     likeCount.innerText = cleanData[index].likes
+            //     likeIcon.append(likeCount)
+            // })
+            
         }
 
     }
