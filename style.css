@@ -107,14 +107,20 @@ header > span {
     font-family: gothamBlack;
 }
 
+.cardName,
 .cardLike,
 .cardComment {
     color: #fff;
+    cursor: pointer;
 }
 
-.cardLike:hover,
+/* .cardLike:hover,
 .cardComment:hover {
     color: #E50914;
+} */
+
+.liked {
+    color: #E50914
 }
 
 .hidden {

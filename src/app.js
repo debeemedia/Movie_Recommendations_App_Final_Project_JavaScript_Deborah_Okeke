@@ -11,6 +11,7 @@ const closePopupBtn = document.createElement('span')
 // reference api urls
 const movieApi = 'https://api.tvmaze.com/shows'
 const commentApi = 'https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/mfWmNK2U98CR08nLP5Ud/comments/'
+const likeApi = 'https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/0V2vKmuLfBH53fnHnuXt/likes'
 
 // create function to fetch movie data
 async function fetchMovie() {
@@ -88,9 +89,34 @@ const displayMovies = async () => {
             cardBody.append(cardName, cardLike, cardComment)
             
             card.append(cardImgDiv, cardBody)
+            // making the GET request to the likes endpoint
+            fetch(likeApi)
+            .then(response => {
+                if (response.ok) {
+                    return response.json()
+                }
+            })
+            .then(data => {
+                console.log(data);
+                const cleanData = data.filter(entry => entry.item_id !== 'item2')
+                console.log(cleanData);
+                let movieLikes = 0;
+                for (let j = 0; j < cleanData.length; j++) {
+                    if (cleanData[j].item_id === movieId[i]) {
+                        movieLikes = cleanData[j].likes;
+                        break;
+                    }
+                }
+                const likeCount = document.createElement('span')
+                likeCount.innerText = movieLikes
+                cardLike.prepend(likeCount)
+            })
+            .catch(error => console.log('Error: ' + error))
 
             // add event listener to show and hide popup
-            card.addEventListener('click', () => showPopup(i))
+            cardImgDiv.addEventListener('click', () => showPopup(i))
+            cardName.addEventListener('click', () => showPopup(i))
+            cardComment.addEventListener('click', () => showPopup(i))
             overlay.addEventListener('click', closePopup)
             closePopupBtn.addEventListener('click', closePopup)
             document.addEventListener('keydown', (event) => {
@@ -98,6 +124,9 @@ const displayMovies = async () => {
                     closePopup()
                 }
             })
+
+            // add event listener to like
+            cardLike.addEventListener('click', () => addLike(i, cardLike))
 
             // append the card to the card container
             cardOuterContainer.append(card)
@@ -272,6 +301,53 @@ const displayMovies = async () => {
             popup.innerHTML = ''
             popup.classList.add('hidden')
             overlay.classList.add('hidden')
+        }
+
+        // implementing likes
+        function addLike (index, likeIcon) {
+            const userLike = {
+                item_id: movieId[index]
+            }
+
+            // making the POST request to the likes endpoint
+            fetch(likeApi, {
+                method: 'POST',
+                headers: {
+                    "Content-Type": 'application/json'
+                },
+                body: JSON.stringify(userLike)
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log('good to go for em likes');
+                    return response.status
+                } else {
+                    console.log('no likes for you brutha');
+                }
+            })
+            .then(data => {
+                console.log(data);
+                if (data === 201) {
+                    likeIcon.classList.add('liked')
+                    console.log('change color');
+                }
+            })
+            .catch(error => {
+                console.log('Error: ' + error);
+            })
+
+            // // making the GET request to the likes endpoint
+            // fetch(likeApi)
+            // .then(response => response.json())
+            // .then(data => {
+            //     console.log(data);
+            //     const cleanData = data.filter(entry => entry.item_id !== 'item2')
+            //     console.log(cleanData);
+            //     const likeCount = document.createElement('span')
+            //     likeCount.innerText = cleanData[index].likes
+            //     likeIcon.append(likeCount)
+            // })
+            
         }
 
     }
