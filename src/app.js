@@ -6,6 +6,8 @@ nav.className = 'nav'
 const popup = document.querySelector('.popup')
 const overlay = document.querySelector('.overlay')
 const closePopupBtn = document.createElement('span')
+const likedMovies = new Set()
+let movieLikes
 
 
 // reference api urls
@@ -89,6 +91,7 @@ const displayMovies = async () => {
             cardBody.append(cardName, cardLike, cardComment)
             
             card.append(cardImgDiv, cardBody)
+
             // making the GET request to the likes endpoint
             fetch(likeApi)
             .then(response => {
@@ -100,7 +103,8 @@ const displayMovies = async () => {
                 console.log(data);
                 const cleanData = data.filter(entry => entry.item_id !== 'item2')
                 console.log(cleanData);
-                let movieLikes = 0;
+
+                movieLikes = 0;
                 for (let j = 0; j < cleanData.length; j++) {
                     if (cleanData[j].item_id === movieId[i]) {
                         movieLikes = cleanData[j].likes;
@@ -126,7 +130,7 @@ const displayMovies = async () => {
             })
 
             // add event listener to like
-            cardLike.addEventListener('click', () => addLike(i, cardLike))
+            cardLike.addEventListener('click', () => addLike(i, cardLike, movieId[i]))
 
             // append the card to the card container
             cardOuterContainer.append(card)
@@ -305,8 +309,14 @@ const displayMovies = async () => {
 
         // implementing likes
         function addLike (index, likeIcon) {
-            const userLike = {
-                item_id: movieId[index]
+            let userLike
+            if (!likedMovies.has(movieId[index])) {
+
+                userLike = {
+                    item_id: movieId[index]
+                }
+            } else {
+                alert('you\'ve already liked this movie')
             }
 
             // making the POST request to the likes endpoint
@@ -329,6 +339,7 @@ const displayMovies = async () => {
                 console.log(data);
                 if (data === 201) {
                     likeIcon.classList.add('liked')
+                    likedMovies.add(movieId)
                     console.log('change color');
                 }
             })
