@@ -205,11 +205,7 @@ const displayMovies = async () => {
                 const commentCount = document.createElement('h4')
                 commentCount.innerText = `All Comments (${data.length})`
                 
-
-                
-
-                // const isCommentExist = Array.isArray(data) && data.length > 0
-
+                // first check if data is an array
                 if (Array.isArray(data) && data.length > 0) {
                     commentCount.innerText = `All Comments (${data.length})`
                     console.log('data is an array');
@@ -308,48 +304,54 @@ const displayMovies = async () => {
             const userLike = {
                 item_id: movieId[index]
             }
+            // create an array to keep track of liked movies and get liked movies from local storage (for the like-only-once feature)
+            const likedMovies = JSON.parse(localStorage.getItem('likedMovies')) || []
 
             // making the POST request to the likes endpoint
-            fetch(likeApi, {
-                method: 'POST',
-                headers: {
-                    "Content-Type": 'application/json'
-                },
-                body: JSON.stringify(userLike)
-            })
-            .then(response => {
-                if (response.ok) {
-                    console.log('good to go for em likes');
-                    return response.status
-                } else {
-                    console.log('no likes for you brutha');
-                }
-            })
-            .then(data => {
-                console.log(data);
-                if (data === 201) {
-                    likeIcon.classList.add('liked')
-                    console.log('change color');
-                }
-            })
-            .catch(error => {
-                console.log('Error: ' + error);
-            })
+            // implementing the like-only-once feature
+            if (!likedMovies.includes(movieId[index])) {
+                fetch(likeApi, {
+                    method: 'POST',
+                    headers: {
+                        "Content-Type": 'application/json'
+                    },
+                    body: JSON.stringify(userLike)
+                })
+                .then(response => {
+                    if (response.ok) {
+                        console.log('good to go for em likes');
+                        return response.status
+                    } else {
+                        console.log('no likes for you brutha');
+                    }
+                })
+                .then(data => {
+                    console.log(data);
+                    if (data === 201) {
+                        likeIcon.classList.add('liked')
+                        // update the liked movies array
+                        likedMovies.push(movieId[index])
+                        // save liked movies to local storage
+                        localStorage.setItem('likedMovies', JSON.stringify(likedMovies))
 
-            // // making the GET request to the likes endpoint
-            // fetch(likeApi)
-            // .then(response => response.json())
-            // .then(data => {
-            //     console.log(data);
-            //     const cleanData = data.filter(entry => entry.item_id !== 'item2')
-            //     console.log(cleanData);
-            //     const likeCount = document.createElement('span')
-            //     likeCount.innerText = cleanData[index].likes
-            //     likeIcon.append(likeCount)
-            // })
-            
+                        console.log('change color');
+                        console.log('you just liked a movie');
+                    }
+                })
+                .catch(error => {
+                    console.log('Error: ' + error);
+                })
+            } else {
+                console.log('Movie already liked');
+                const tooltip = document.createElement('span')
+                tooltip.innerHTML = 'You\'ve already liked this movie<br>'
+                tooltip.className = 'tooltip'
+                likeIcon.prepend(tooltip)
+                setTimeout(() => {
+                    likeIcon.removeChild(tooltip)
+                }, 2000)
+            }            
         }
-
     }
     
     // create page navigation
