@@ -6,6 +6,7 @@ nav.className = 'nav'
 const popup = document.querySelector('.popup')
 const overlay = document.querySelector('.overlay')
 const closePopupBtn = document.createElement('span')
+closePopupBtn.className = 'closePopupBtn'
 
 
 // reference api urls
@@ -174,10 +175,13 @@ const displayMovies = async () => {
             const commentForm = document.createElement('form')
             commentForm.className = 'commentForm'
             const commentInput = document.createElement('input')
+            commentInput.className = 'commentInput'
             commentInput.placeholder = 'Your Name here'
             const commentText = document.createElement('textarea')
+            commentText.className = 'commentText'
             commentText.placeholder = 'Your Comment here'
             const commentButton = document.createElement('button')
+            commentButton.className = 'commentButton'
             commentButton.innerText = 'Comment'
 
             commentForm.append(commentInput, commentText, commentButton)
@@ -215,11 +219,11 @@ const displayMovies = async () => {
                         const commentsDiv = document.createElement('div')
     
                         const commentsDivDate = document.createElement('span')
-                        commentsDivDate.innerText = commentsData.creation_date
+                        commentsDivDate.innerHTML = `${commentsData.creation_date}<br>`
                         const commentsDivUser = document.createElement('span')
-                        commentsDivUser.innerText = commentsData.username
+                        commentsDivUser.innerHTML = `${commentsData.username}: <br>`
                         const commentsDivComment = document.createElement('span')
-                        commentsDivComment.innerText = commentsData.comment
+                        commentsDivComment.innerHTML = `${commentsData.comment}<br><br>`
                         
                         commentsDiv.append(commentsDivDate, commentsDivUser, commentsDivComment)
       
@@ -232,9 +236,7 @@ const displayMovies = async () => {
                     console.log('data is not an array');
                 }
 
-                commentsDivContainer.prepend(commentCount)
-
-                commentFormAndDiv.append(commentsDivContainer)
+                commentFormAndDiv.append(commentCount, commentsDivContainer)
 
             })
 
@@ -271,13 +273,19 @@ const displayMovies = async () => {
                 .then(data => {
                     if (data === 201) {
                         console.log('hi there');
+                        // clear commentForm values
+                        // commentInput.value = ''
+                        // commentText.value = ''
+                        // OR since this is a form:
+                        commentForm.reset()
+
                         const newCommentsDiv = document.createElement('div')
                         const newCommentsDivDate = document.createElement('span')
-                        newCommentsDivDate.innerText = new Date().toLocaleString()
+                        newCommentsDivDate.innerHTML = `${new Date().toLocaleString()}<br>`
                         const newCommentsDivUser = document.createElement('span')
-                        newCommentsDivUser.innerText = userComment.username
+                        newCommentsDivUser.innerHTML = `${userComment.username}: <br>`
                         const newCommentsDivComment = document.createElement('span')
-                        newCommentsDivComment.innerText = userComment.comment
+                        newCommentsDivComment.innerHTML = `${userComment.comment}<br><br>`
                         
                         newCommentsDiv.append(newCommentsDivDate, newCommentsDivUser, newCommentsDivComment)
 

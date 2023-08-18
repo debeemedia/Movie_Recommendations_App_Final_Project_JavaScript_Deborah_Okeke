@@ -109,8 +109,13 @@ header > span {
 
 .cardName,
 .cardLike,
-.cardComment {
+.cardComment,
+.closePopupBtn {
     color: #fff;
+    cursor: pointer;
+}
+
+.cardImg {
     cursor: pointer;
 }
 
@@ -154,6 +159,7 @@ header > span {
     flex: 1;
     display: flex;
     /* justify-content: space-between; */
+    flex-direction: column;
     gap: 10px;
 }
 
@@ -163,13 +169,14 @@ header > span {
 }
 
 .description {
-    flex: 1;
+    /* flex: 1; */
+    order: -1;
 }
 
 .commentFormAndDiv {
     display: flex;
     flex-direction: column;
-    gap: 100px;
+    gap: 20px;
 }
 
 .commentForm {
@@ -178,14 +185,51 @@ header > span {
     flex-direction: column;
 }
 
+.commentInput,
+.commentText,
+.commentButton {
+    background-color: #141414;
+    border: none;
+    outline: none;
+    color: #fff;
+    margin-bottom: 5px;
+    padding: 10px;
+}
+
+.commentInput {
+    font-family: gothamBook;
+}
+
+.commentText {
+    font-family: gothamBook;
+    height: 150px;
+}
+
+.commentButton {
+    width: 40%;
+    /* margin: auto; */
+    border-radius: 5px;
+    font-family: gothamBook;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+.commentButton:hover {
+    border: 1px solid #fff;
+}
+
 .commentsDiv {
     display: flex;
     flex-direction: column;
 }
 
 .commentsDivContainer {
+    border: 5px inset grey;
+    background-color: #141414;
     max-height: 100px;
     overflow-y: scroll;
+    padding: 10px;
     /* background-color: red; */
 }
 
@@ -238,5 +282,17 @@ footer {
         display: grid;
         grid-template-columns: repeat(4, auto);
         padding: 30px 80px;
+    }
+
+    .popup {
+        width: 70%;
+    }
+
+    .popupContainer {
+        flex-direction: row;
+    }
+
+    .description {
+        order: initial;
     }
 }
