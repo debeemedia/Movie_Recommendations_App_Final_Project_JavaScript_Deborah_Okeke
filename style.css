@@ -107,6 +107,10 @@ header > span {
     font-family: gothamBlack;
 }
 
+.cardImg {
+    cursor: pointer;
+}
+
 .cardName,
 .cardLike,
 .cardComment,
@@ -115,8 +119,11 @@ header > span {
     cursor: pointer;
 }
 
-.cardImg {
-    cursor: pointer;
+.cardBody,
+.cardLike {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* .cardLike:hover,
@@ -147,6 +154,9 @@ header > span {
 
 .popup {
     position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     /* width: 450px; */
     min-height: 250px;
     background-color: #414141;
