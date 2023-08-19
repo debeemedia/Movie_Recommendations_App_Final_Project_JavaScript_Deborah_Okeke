@@ -45,7 +45,7 @@ header {
 }
 
 header.lightMode {
-  color: lightgrey;
+  color: #fff;
 }
 
 h1 {
