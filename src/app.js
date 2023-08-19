@@ -64,6 +64,8 @@ function toggleMode() {
 
     siteCommentsDivContainers.forEach(siteCommentsDivContainer => siteCommentsDivContainer.classList.toggle('lightMode'))
 
+    toggleButton.classList.toggle('lightMode')
+
 }
 
 toggleButton.addEventListener('click', toggleMode)

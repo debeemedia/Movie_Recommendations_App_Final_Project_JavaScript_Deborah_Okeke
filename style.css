@@ -74,12 +74,26 @@ header > span {
     top: 20px;
     right: 20px;
     font-size: 24px;
+    background-color: #141414;
     cursor: pointer;
     color: #fff;
-    background-color: #E50914;
     padding: 10px 20px;
     border-radius: 10px;
     transition: background-color 0.3s ease;
+}
+
+.toggleButton:hover {
+    background-color: #1c1c1c;
+}
+
+.lightMode .toggleButton {
+    background-color: #E50914;
+    color: #fff;
+}
+
+.lightMode .toggleButton:hover {
+    background-color: #c50711;
+
 }
 
 .container {
