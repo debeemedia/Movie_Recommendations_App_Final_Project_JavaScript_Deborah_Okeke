@@ -80,7 +80,7 @@ header > span {
     align-items: center;
     gap: 10px;
     box-shadow: 0 1px 5px 1px grey;
-    transition: .5s;
+    transition: .5s ease;
     font-family: gothamBook;
 }
 
@@ -280,6 +280,25 @@ footer {
     justify-content: center;
     margin-top: 100px;
     padding: 10px;
+}
+
+a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.social {
+    text-decoration: underline;
+}
+
+.social:hover{
+    text-decoration: none;
+    color: #E50914;
+}
+
+.phone:hover::after {
+    content: ' (dial)';
+    color: #E50914;
 }
 
 /********** MEDIA QUERIES **********/
