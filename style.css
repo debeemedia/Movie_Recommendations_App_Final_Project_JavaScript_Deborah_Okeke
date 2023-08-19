@@ -31,12 +31,13 @@ html {
 body {
     position: relative;
     min-height: 100vh;
-    color: #fff;
+    /*color: #fff;*/
     line-height: 1.5;
 }
 
 header {
     background-color: #E50914;
+    color: #fff;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -64,15 +65,54 @@ header > span {
     font-size: 1rem;
 }
 
+.toggleButton {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+  cursor: pointer;
+    background-color: #E50914;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 10px;
+  border: 1px solid grey;
+  outline: none;
+    transition: background-color 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.toggleButton:hover {
+    background-color: #c50711;
+}
+
+.lightMode .toggleButton {
+    background-color: #141414;
+    color: #fff;
+}
+
+.lightMode .toggleButton:hover {
+    background-color: #1c1c1c;
+
+}
+
 .container {
     min-height: 100vh;
     background-color: #141414;
+  color: #fff;
     padding-top: 30px;
     padding-bottom: 100px;
+  transition: 0.3s ease;
+}
+
+.container.lightMode {
+  background-color: lightgrey;
+  color: #141414;
 }
 
 .card {
     background-color: #414141;
+  color: #fff;
     width: 70%;
     margin: 0 auto 30px;
     padding: 20px;
@@ -84,6 +124,10 @@ header > span {
     box-shadow: 0 1px 5px 1px grey;
     transition: .5s ease;
     font-family: gothamBook;
+}
+
+.lightMode .card {
+  box-shadow: 0 1px 5px 1px #141414;
 }
 
 .card:hover {
@@ -120,6 +164,10 @@ header > span {
 .closePopupBtn {
     color: #fff;
     cursor: pointer;
+}
+
+.lightMode .closePopupBtn {
+    color: #141414;
 }
 
 .cardBody,
@@ -162,12 +210,19 @@ header > span {
     max-height: 90vh;
     overflow-y: auto;
     background-color: #414141;
+  color: #fff;
     z-index: 2;
     padding: 20px;
     border-radius: 10px;
     width: 70%;
     font-family: gothamBook;
     font-size: 1.2rem;
+}
+
+.popup.lightMode {
+  background-color: darkgrey;
+  color: #414141;
+  font-family: gothamBlack;
 }
 
 .popupContainer {
@@ -221,6 +276,17 @@ header > span {
     padding: 10px;
 }
 
+.lightMode .commentInput,
+.lightMode .commentText,
+.lightMode .commentButton {
+  background-color: #414141;
+}
+
+.lightMode .commentInput::placeholder,
+.lightMode .commentText::placeholder {
+  color: #fff;
+}
+
 .commentInput {
     font-family: gothamBook;
     font-size: 1rem;
@@ -254,9 +320,17 @@ header > span {
 .commentsDivContainer {
     border: 5px inset grey;
     background-color: #141414;
+    color: #fff;
     max-height: 200px;
     overflow-y: scroll;
     padding: 10px;
+  font-family: gothamBook;
+}
+
+.lightMode .commentsDivContainer {
+    border: 5px inset lightgrey;
+    background-color: #414141;
+    color: #fff;
 }
 
 nav {
@@ -265,6 +339,7 @@ nav {
     justify-content: space-between;
     align-items: center;
     background-color: #414141;
+  color: #fff;
     width: 100px;
     margin: 30px auto 60px;
 }
@@ -279,6 +354,7 @@ footer {
     position: absolute;
     bottom: 0;
     background-color: #141414;
+  color: #fff;
     font-family: gothamBlack;
     font-size: 1rem;
     text-align: center;
@@ -289,6 +365,15 @@ footer {
     width: 100%;
     margin-top: auto;
     padding: 10px;
+}
+
+footer.lightMode {
+  background-color: lightgrey;
+  color: #414141;
+}
+
+footer a.lightMode {
+  color: #414141;
 }
 
 footer p {
@@ -328,6 +413,11 @@ a {
     html {
         font-size: 17px;
     }
+  
+  
+.toggleButton {
+    padding: 5px 10px;
+}
 
     .cardOuterContainer {
         display: grid;
