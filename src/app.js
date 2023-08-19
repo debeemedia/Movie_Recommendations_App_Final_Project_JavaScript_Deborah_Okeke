@@ -57,6 +57,7 @@ const displayMovies = async () => {
     
     // create function to display pages
     function displayPage() {
+        closePopup()
         let startIndex = (currentPage - 1) * itemsPerPage
         let endIndex = startIndex + itemsPerPage
 
@@ -135,8 +136,22 @@ const displayMovies = async () => {
         // append the card container to the main
         main.append(cardOuterContainer)
 
+        // // using js to implement feature for popup to pop out from the exact card that is clicked
+        // // const card = document.querySelectorAll('.card')[index]
+        // popupPosition = card.getBoundingClientRect()
+        // popup.style.left = `${popupPosition.left + window.scrollX}px`
+        // popup.style.top = `${popupPosition.top + window.scrollY}px`
+        // console.log(`${popupPosition.top + window.scrollY}px`)
+
         // create function to show popup
         function showPopup (index) {
+            // set popup to pop out from the corresponding clicked card
+            // console.log(index);
+            // const card = document.querySelectorAll('.card')[index]
+            // const popupPosition = card.getBoundingClientRect()
+            // popup.style.top = `${popupPosition.top + window.scrollY}px`
+            // console.log(`${popupPosition.top + window.scrollY}px`)
+            
             closePopupBtn.innerHTML = `<span class="material-symbols-outlined">
             close
             </span>`
@@ -243,7 +258,6 @@ const displayMovies = async () => {
 
             })
 
-            // implementing comments
             commentInput.setAttribute('required', '')
             commentText.setAttribute('required', '')
             commentForm.addEventListener('submit', (e) => {
@@ -310,7 +324,7 @@ const displayMovies = async () => {
             overlay.classList.add('hidden')
         }
 
-        // implementing likes
+        // create function to add likes
         function addLike (index, likeIcon) {
             const userLike = {
                 item_id: movieId[index]
