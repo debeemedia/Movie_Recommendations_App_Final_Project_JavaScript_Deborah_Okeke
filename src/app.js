@@ -8,6 +8,14 @@ const overlay = document.querySelector('.overlay')
 const closePopupBtn = document.createElement('span')
 closePopupBtn.className = 'closePopupBtn'
 
+// update copyright year in html footer
+const copyrightYear = document.querySelector('.copyrightYear')
+const currentYear = new Date().getFullYear()
+if (currentYear !== 2023) {
+    copyrightYear.innerText = `2023 - ${currentYear} `
+} else {
+    copyrightYear.innerText = '2023 '
+}
 
 // reference api urls
 const movieApi = 'https://api.tvmaze.com/shows'

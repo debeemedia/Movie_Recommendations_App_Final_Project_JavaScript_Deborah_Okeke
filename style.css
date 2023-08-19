@@ -29,9 +29,9 @@ html {
 }
 
 body {
+    position: relative;
     min-height: 100vh;
     color: #fff;
-    position: relative;
     line-height: 1.5;
 }
 
@@ -65,8 +65,10 @@ header > span {
 }
 
 .container {
+    min-height: 100vh;
     background-color: #141414;
     padding-top: 30px;
+    padding-bottom: 100px;
 }
 
 .card {
@@ -264,7 +266,7 @@ nav {
     align-items: center;
     background-color: #414141;
     width: 100px;
-    margin: 30px auto 0;
+    margin: 30px auto auto auto;
 }
 
 nav span:hover {
@@ -273,13 +275,36 @@ nav span:hover {
 }
 
 footer {
+    height: 100px;
+    position: absolute;
+    bottom: 0;
+    background-color: #141414;
     font-family: gothamBlack;
     font-size: 1rem;
     text-align: center;
     display: flex;
     justify-content: center;
-    margin-top: 100px;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    margin-top: auto;
     padding: 10px;
+}
+
+footer p {
+    flex-wrap: wrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 10px;
+    margin: auto;
+}
+
+.mailIcon:hover,
+.phone:hover {
+    cursor: pointer;
+    color: #E50914;
 }
 
 a {
@@ -296,10 +321,6 @@ a {
     color: #E50914;
 }
 
-.phone:hover::after {
-    content: ' (dial)';
-    color: #E50914;
-}
 
 /********** MEDIA QUERIES **********/
 
