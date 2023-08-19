@@ -17,6 +17,57 @@ if (currentYear !== 2023) {
     copyrightYear.innerText = '2023 '
 }
 
+// toggle light mode feature
+const toggleButton = document.querySelector('.toggleButton')
+
+const siteContainer = document.querySelector('.container')
+
+const siteCards = document.querySelectorAll('.card')
+
+const siteHeader = document.querySelector('header')
+
+const siteFooter = document.querySelector('footer')
+
+const siteFooterLinks = siteFooter.querySelectorAll('a')
+
+const sitePopups = document.querySelectorAll('.popup')
+
+const siteCommentInputs = document.querySelectorAll('.commentInput')
+
+const siteCommentTexts = document.querySelectorAll('.commentText')
+
+const siteCommentButtons = document.querySelectorAll('.commentButton')
+
+const siteClosePopupBtns = document.querySelectorAll('.closePopupBtn')
+
+const siteCommentsDivContainers = document.querySelectorAll('.commentsDivContainer')
+
+function toggleMode() {
+    siteContainer.classList.toggle('lightMode')
+    // siteCards.classList.toggle('lightMode')
+    siteCards.forEach(siteCard => siteCard.classList.toggle('lightMode'))
+    siteHeader.classList.toggle('lightMode')
+    
+    siteFooter.classList.toggle('lightMode')
+
+    siteFooterLinks.forEach(siteFooterLink => siteFooterLink.classList.toggle('lightMode'))
+    
+    sitePopups.forEach(sitePopup => sitePopup.classList.toggle('lightMode'))
+
+    siteCommentInputs.forEach(siteCommentInput => siteCommentInput.classList.toggle('lightMode'))
+
+    siteCommentTexts.forEach(siteCommentText => siteCommentText.classList.toggle('lightMode'))
+
+    siteCommentButtons.forEach(siteCommentButton => siteCommentButton.classList.toggle('lightMode'))
+
+    siteClosePopupBtns.forEach(siteClosePopupBtn => siteClosePopupBtn.classList.toggle('lightMode'))
+
+    siteCommentsDivContainers.forEach(siteCommentsDivContainer => siteCommentsDivContainer.classList.toggle('lightMode'))
+
+}
+
+toggleButton.addEventListener('click', toggleMode)
+
 // reference api urls
 const movieApi = 'https://api.tvmaze.com/shows'
 const commentApi = 'https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/mfWmNK2U98CR08nLP5Ud/comments/'
