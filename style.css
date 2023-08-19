@@ -223,6 +223,7 @@ header > span {
   background-color: darkgrey;
   color: #414141;
   font-family: gothamBlack;
+    font-size: 1.05rem;
 }
 
 .popupContainer {
