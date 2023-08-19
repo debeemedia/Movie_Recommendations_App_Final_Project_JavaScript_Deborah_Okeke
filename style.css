@@ -222,6 +222,7 @@ header > span {
 .popup.lightMode {
   background-color: darkgrey;
   color: #414141;
+  font-family: gothamBlack;
 }
 
 .popupContainer {
@@ -279,6 +280,11 @@ header > span {
 .lightMode .commentText,
 .lightMode .commentButton {
   background-color: #414141;
+}
+
+.lightMode .commentInput::placeholder,
+.lightMode .commentText::placeholder {
+  color: #fff;
 }
 
 .commentInput {
