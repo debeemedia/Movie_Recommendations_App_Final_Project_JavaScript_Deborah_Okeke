@@ -6,6 +6,7 @@ nav.className = 'nav'
 const popup = document.querySelector('.popup')
 const overlay = document.querySelector('.overlay')
 const closePopupBtn = document.createElement('span')
+closePopupBtn.className = 'closePopupBtn'
 
 
 // reference api urls
@@ -56,6 +57,7 @@ const displayMovies = async () => {
     
     // create function to display pages
     function displayPage() {
+        closePopup()
         let startIndex = (currentPage - 1) * itemsPerPage
         let endIndex = startIndex + itemsPerPage
 
@@ -134,8 +136,22 @@ const displayMovies = async () => {
         // append the card container to the main
         main.append(cardOuterContainer)
 
+        // // using js to implement feature for popup to pop out from the exact card that is clicked
+        // // const card = document.querySelectorAll('.card')[index]
+        // popupPosition = card.getBoundingClientRect()
+        // popup.style.left = `${popupPosition.left + window.scrollX}px`
+        // popup.style.top = `${popupPosition.top + window.scrollY}px`
+        // console.log(`${popupPosition.top + window.scrollY}px`)
+
         // create function to show popup
         function showPopup (index) {
+            // set popup to pop out from the corresponding clicked card
+            // console.log(index);
+            // const card = document.querySelectorAll('.card')[index]
+            // const popupPosition = card.getBoundingClientRect()
+            // popup.style.top = `${popupPosition.top + window.scrollY}px`
+            // console.log(`${popupPosition.top + window.scrollY}px`)
+            
             closePopupBtn.innerHTML = `<span class="material-symbols-outlined">
             close
             </span>`
@@ -159,8 +175,11 @@ const displayMovies = async () => {
             const extraDescription = document.createElement('div')
             extraDescription.className = 'extraDescription'
 
+            const thumbnailDiv = document.createElement('div')
+            thumbnailDiv.className = 'thumbnailDiv'
             const thumbnail = document.createElement('img')
             thumbnail.src = movieThumbnail[index]
+            thumbnailDiv.append(thumbnail)
 
             const runtime = document.createElement('span')
             runtime.innerText = `RUNTIME: ${movieRuntime[index]}`
@@ -174,15 +193,18 @@ const displayMovies = async () => {
             const commentForm = document.createElement('form')
             commentForm.className = 'commentForm'
             const commentInput = document.createElement('input')
+            commentInput.className = 'commentInput'
             commentInput.placeholder = 'Your Name here'
             const commentText = document.createElement('textarea')
+            commentText.className = 'commentText'
             commentText.placeholder = 'Your Comment here'
             const commentButton = document.createElement('button')
+            commentButton.className = 'commentButton'
             commentButton.innerText = 'Comment'
 
             commentForm.append(commentInput, commentText, commentButton)
 
-            extraDescription.append(thumbnail, runtime, rating)
+            extraDescription.append(thumbnailDiv, runtime, rating)
 
             popupContainer.append(extraDescription, description)
             
@@ -215,11 +237,11 @@ const displayMovies = async () => {
                         const commentsDiv = document.createElement('div')
     
                         const commentsDivDate = document.createElement('span')
-                        commentsDivDate.innerText = commentsData.creation_date
+                        commentsDivDate.innerHTML = `${commentsData.creation_date}<br>`
                         const commentsDivUser = document.createElement('span')
-                        commentsDivUser.innerText = commentsData.username
+                        commentsDivUser.innerHTML = `${commentsData.username}: <br>`
                         const commentsDivComment = document.createElement('span')
-                        commentsDivComment.innerText = commentsData.comment
+                        commentsDivComment.innerHTML = `${commentsData.comment}<br><br>`
                         
                         commentsDiv.append(commentsDivDate, commentsDivUser, commentsDivComment)
       
@@ -232,13 +254,10 @@ const displayMovies = async () => {
                     console.log('data is not an array');
                 }
 
-                commentsDivContainer.prepend(commentCount)
-
-                commentFormAndDiv.append(commentsDivContainer)
+                commentFormAndDiv.append(commentCount, commentsDivContainer)
 
             })
 
-            // implementing comments
             commentInput.setAttribute('required', '')
             commentText.setAttribute('required', '')
             commentForm.addEventListener('submit', (e) => {
@@ -271,13 +290,19 @@ const displayMovies = async () => {
                 .then(data => {
                     if (data === 201) {
                         console.log('hi there');
+                        // clear commentForm values
+                        // commentInput.value = ''
+                        // commentText.value = ''
+                        // OR since this is a form:
+                        commentForm.reset()
+
                         const newCommentsDiv = document.createElement('div')
                         const newCommentsDivDate = document.createElement('span')
-                        newCommentsDivDate.innerText = new Date().toLocaleString()
+                        newCommentsDivDate.innerHTML = `${new Date().toLocaleString()}<br>`
                         const newCommentsDivUser = document.createElement('span')
-                        newCommentsDivUser.innerText = userComment.username
+                        newCommentsDivUser.innerHTML = `${userComment.username}: <br>`
                         const newCommentsDivComment = document.createElement('span')
-                        newCommentsDivComment.innerText = userComment.comment
+                        newCommentsDivComment.innerHTML = `${userComment.comment}<br><br>`
                         
                         newCommentsDiv.append(newCommentsDivDate, newCommentsDivUser, newCommentsDivComment)
 
@@ -299,7 +324,7 @@ const displayMovies = async () => {
             overlay.classList.add('hidden')
         }
 
-        // implementing likes
+        // create function to add likes
         function addLike (index, likeIcon) {
             const userLike = {
                 item_id: movieId[index]

@@ -32,6 +32,7 @@ body {
     min-height: 100vh;
     color: #fff;
     position: relative;
+    line-height: 1.5;
 }
 
 header {
@@ -44,39 +45,33 @@ header {
 
 h1 {
     display: flex;
-    align-items: center;
+    align-items: baseline;
     gap: 1px;
 }
 
 h1 span:first-child {
     font-family: terminator;
-    /* font-size: 32px; */
     font-size: 3rem;
 }
 
 h1 span:nth-child(2) {
     font-family: gothamBlack;
-    /* font-size: 16px; */
     font-size: 2rem;
 }
 
 header > span {
     font-family: gothamBook;
-    /* font-size: 14px; */
     font-size: 1rem;
 }
 
 .container {
     background-color: #141414;
     padding-top: 30px;
-    /* revisit */
-    min-height: 500px;
 }
 
 .card {
     background-color: #414141;
     width: 70%;
-    /* max-width: 400px; */
     margin: 0 auto 30px;
     padding: 20px;
     border-radius: 10px;
@@ -85,6 +80,12 @@ header > span {
     align-items: center;
     gap: 10px;
     box-shadow: 0 1px 5px 1px grey;
+    transition: .5s;
+    font-family: gothamBook;
+}
+
+.card:hover {
+    transform: scale(1.04);
 }
 
 .cardImgDiv {
@@ -107,17 +108,28 @@ header > span {
     font-family: gothamBlack;
 }
 
+.cardImg {
+    cursor: pointer;
+}
+
 .cardName,
 .cardLike,
-.cardComment {
+.cardComment,
+.closePopupBtn {
     color: #fff;
     cursor: pointer;
 }
 
-/* .cardLike:hover,
-.cardComment:hover {
-    color: #E50914;
-} */
+.cardBody,
+.cardLike {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cardLike {
+    gap: 3px;
+}
 
 .liked {
     color: #E50914
@@ -141,41 +153,95 @@ header > span {
 }
 
 .popup {
-    position: absolute;
-    /* width: 450px; */
-    min-height: 250px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-height: 90vh;
+    overflow-y: auto;
     background-color: #414141;
     z-index: 2;
     padding: 20px;
     border-radius: 10px;
+    width: 70%;
+    font-family: gothamBook;
+    font-size: 1.2rem;
 }
 
 .popupContainer {
     flex: 1;
     display: flex;
-    /* justify-content: space-between; */
-    gap: 10px;
+    flex-direction: column;
+    gap: 50px;
 }
 
 .extraDescription {
+    flex: 1;
     display: flex;
     flex-direction: column;
+}
+
+.thumbnailDiv {
+    width: 100%;
+}
+
+.thumbnailDiv > img {
+    width: 100%;
+    height: 100%;
 }
 
 .description {
-    flex: 1;
+    flex: 1.5;
+    order: -1;
 }
 
 .commentFormAndDiv {
+    flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 100px;
+    gap: 20px;
+    padding: 20px 0;
 }
 
 .commentForm {
-    /* flex: 1; */
     display: flex;
     flex-direction: column;
+}
+
+.commentInput,
+.commentText,
+.commentButton {
+    background-color: #141414;
+    border: none;
+    outline: none;
+    color: #fff;
+    margin-bottom: 5px;
+    padding: 10px;
+}
+
+.commentInput {
+    font-family: gothamBook;
+    font-size: 1rem;
+}
+
+.commentText {
+    font-family: gothamBook;
+    font-size: 1rem;
+    height: 150px;
+}
+
+.commentButton {
+    width: 60%;
+    border-radius: 5px;
+    font-family: gothamBook;
+    font-size: 1.2rem;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+.commentButton:hover {
+    border: 1px solid #fff;
 }
 
 .commentsDiv {
@@ -184,9 +250,11 @@ header > span {
 }
 
 .commentsDivContainer {
-    max-height: 100px;
+    border: 5px inset grey;
+    background-color: #141414;
+    max-height: 200px;
     overflow-y: scroll;
-    /* background-color: red; */
+    padding: 10px;
 }
 
 nav {
@@ -195,7 +263,7 @@ nav {
     justify-content: space-between;
     align-items: center;
     background-color: #414141;
-    width: 20%;
+    width: 100px;
     margin: 30px auto 0;
 }
 
@@ -205,11 +273,16 @@ nav span:hover {
 }
 
 footer {
-    font-family: gothamLight;
-    font-size: 10px;
+    font-family: gothamBlack;
+    font-size: 1rem;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+    padding: 10px;
 }
 
-/* MEDIA QUERIES */
+/********** MEDIA QUERIES **********/
 
 @media screen and (width >= 575px) {
     html {
@@ -227,9 +300,17 @@ footer {
         margin: initial;
         width: initial;
     }
+
+    .cardBody {
+        gap: 30px;
+    }
+
+    .popup {
+        width: 50%;
+    }
 }
 
-@media screen and (width >= 1024px) {
+@media screen and (width >= 1250px) {
     html {
         font-size: 18px;
     }
@@ -238,5 +319,17 @@ footer {
         display: grid;
         grid-template-columns: repeat(4, auto);
         padding: 30px 80px;
+    }
+
+    .popup {
+        width: 70%;
+    }
+
+    .popupContainer {
+        flex-direction: row;
+    }
+
+    .description {
+        order: initial;
     }
 }
