@@ -266,7 +266,7 @@ nav {
     align-items: center;
     background-color: #414141;
     width: 100px;
-    margin: 30px auto auto auto;
+    margin: 30px auto 60px;
 }
 
 nav span:hover {
