@@ -324,6 +324,7 @@ header > span {
     max-height: 200px;
     overflow-y: scroll;
     padding: 10px;
+  font-family: gothamBook;
 }
 
 .lightMode .commentsDivContainer {
