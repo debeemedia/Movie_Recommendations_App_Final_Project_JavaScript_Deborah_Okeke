@@ -44,10 +44,6 @@ header {
     padding: 10px 0;
 }
 
-header.lightMode {
-  color: #fff;
-}
-
 h1 {
     display: flex;
     align-items: baseline;
@@ -73,26 +69,30 @@ header > span {
     position: fixed;
     top: 20px;
     right: 20px;
-    font-size: 24px;
-    background-color: #141414;
-    cursor: pointer;
+  cursor: pointer;
+    background-color: #E50914;
     color: #fff;
-    padding: 10px 20px;
+    padding: 5px 10px;
     border-radius: 10px;
+  border: 1px solid grey;
+  outline: none;
     transition: background-color 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .toggleButton:hover {
-    background-color: #1c1c1c;
+    background-color: #c50711;
 }
 
 .lightMode .toggleButton {
-    background-color: #E50914;
+    background-color: #141414;
     color: #fff;
 }
 
 .lightMode .toggleButton:hover {
-    background-color: #c50711;
+    background-color: #1c1c1c;
 
 }
 
@@ -102,17 +102,13 @@ header > span {
   color: #fff;
     padding-top: 30px;
     padding-bottom: 100px;
+  transition: 0.3s ease;
 }
 
 .container.lightMode {
   background-color: lightgrey;
   color: #141414;
 }
-
-/*main {
-  background-color: inherit;
-  color: inherit;
-}*/
 
 .card {
     background-color: #414141;
@@ -410,6 +406,11 @@ a {
     html {
         font-size: 17px;
     }
+  
+  
+.toggleButton {
+    padding: 5px 10px;
+}
 
     .cardOuterContainer {
         display: grid;
